@@ -394,7 +394,7 @@ class Linkgrabber:
         """
         resp = self.device.action("/linkgrabberv2/addLinks", params)
         return resp
-    
+
     def is_collecting(self):
         """
         Boolean status query about the collecting process
@@ -458,11 +458,17 @@ class Linkgrabber:
         """
         pass
 
-    def rename_package(self):
+    def rename_package(self, params=[None, None]):
         """
-        No idea what parameters i have to pass and/or i don't know what it does.
-        If i find out i will implement it :P
+        Rename package in the linkcollector
+	Example call: rename_package([1586475623719, "New Name"])
+
+        {
+        "packageId" : null,
+        "newName" : null
+        }
         """
+        resp = self.device.action("/linkgrabberv2/renamePackage", params)
         pass
 
     def query_packages(self):
