@@ -471,12 +471,68 @@ class Linkgrabber:
         resp = self.device.action("/linkgrabberv2/renamePackage", params)
         pass
 
-    def query_packages(self):
+    def query_packages(self,
+                    params=[{
+                        "availableOfflineCount": True,
+                        "availableOnlineCount": True,
+                        "availableTempUnknownCount": True,
+                        "availableUnknownCount": True,
+                        "bytesTotal": True,
+                        "childCount": True,
+                        "comment": True,
+                        "enabled": True,
+                        "hosts": True,
+                        "maxResults": -1,
+                        "packageUUIDs": None,
+                        "priority": True,
+                        "saveTo": True,
+                        "startAt": 0,
+                        "status": True,
+                    }]):
         """
-        No idea what parameters i have to pass and/or i don't know what it does.
-        If i find out i will implement it :P
+
+        Get the packages in the linkcollector/linkgrabber
+
+        :param params: A dictionary with options. The default dictionary is
+        configured so it returns you all the packages with all details, but you
+        can put your own with your options. All the options available are these
+        ones:
+        {
+        "availableOfflineCount"     : boolean,
+        "availableOnlineCount"      : boolean,
+        "availableTempUnknownCount" : boolean,
+        "availableUnknownCount"     : boolean,
+        "bytesTotal"                : boolean,
+        "childCount"                : boolean,
+        "comment"                   : boolean,
+        "enabled"                   : boolean,
+        "hosts"                     : boolean,
+        "maxResults"                : int,
+        "packageUUIDs"              : long[],
+        "priority"                  : boolean,
+        "saveTo"                    : boolean,
+        "startAt"                   : int,
+        "status"                    : boolean
+        }
+        :type: Dictionary
+        :rtype: List of dictionaries of this style, with more or less detail based on your options.
+
+        [   {
+            'onlineCount': 1,
+            'offlineCount': 0,
+            'saveTo': '/data/The Rick and Morty Theory'
+            'unknownCount': 0,
+            'hosts': ['youtube.com'],
+            'name': 'The Rick and Morty Theory'
+            'childCount': 1,
+            'uuid': 1450430888524,
+            'bytesTotal': 68548274,
+            'enabled': True,
+            'tempUnknownCount' : 0
+            }, ... ]
         """
-        pass
+        resp = self.device.action(self.url + "/queryPackages", params)
+        return resp
 
     def move_packages(self):
         """
